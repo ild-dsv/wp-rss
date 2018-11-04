@@ -1,23 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import App from '../shared/app'
+import { Provider } from 'react-redux'
+
+import App from './app'
+import configureStore from '../shared/store'
+
+const store = configureStore(false)
 
 function render(Component) {
   ReactDOM.hydrate(
-    <AppContainer>
+    <Provider store={store}>
       <Component />
-    </AppContainer>,
+    </Provider>
+  ,
     document.getElementById('react-root')
   )
 }
 
-console.log(App)
 render(App)
-
-if (module.hot) {
-  module.hot.accept('../shared/app.js', () => {
-    const NewApp = require('../shared/app.js').default
-    render(NewApp)
-  })
-}

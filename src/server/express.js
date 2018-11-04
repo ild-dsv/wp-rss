@@ -40,7 +40,7 @@ if (isDev) {
 		clientCompiler,
 		configDevClient.devServer,
   )
-  
+
   server.use(webpackDevMiddleware)
   server.use(webpackHotMiddlware)
   server.use(webpackHotServerMiddleware(compiler))

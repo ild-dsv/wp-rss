@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
 
-import Head from '../server/components/Head'
+import Head from '../components/Head'
 import Home from './components/Home'
 import About from './components/About'
 import Page404 from './components/Page404';

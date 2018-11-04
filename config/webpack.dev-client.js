@@ -8,7 +8,7 @@ module.exports = {
     vendor: ['react', 'react-dom'],
     main: [
       '@babel/polyfill',
-      'react-hot-loader/patch',
+      // 'react-hot-loader/patch', --> only uncomment this line for react-hot-loader v3
       '@babel/runtime/regenerator',
       'webpack-hot-middleware/client?reload=true',
       './src/client/main.js'
@@ -51,7 +51,7 @@ module.exports = {
 							ident: 'postcss',
 						},
           },
-          
+
         ]
       },
       {
