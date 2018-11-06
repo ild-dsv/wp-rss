@@ -16,7 +16,8 @@ export default ({ clientStats }) => (req, res) => {
   const branch = matchRoutes(routes, req.url)
   const store = configureStore(true)
   const promises = branch.map(({route}) => {
-    let fetchData = route.component.fetchData
+    let fetchData = route.component.fetchData;
+    console.log(route.component.fetchData);
     return fetchData instanceof Function ? fetchData(store) : Promise.resolve(null)
   })
   return Promise.all(promises).then(data => {

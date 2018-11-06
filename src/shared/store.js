@@ -8,7 +8,7 @@ const configureStore = (isServer) => {
   if (isServer) {
     return createStore(rootReducer, {}, applyMiddleware(reduxThunk))
   }
-  console.log(window.__INITIAL_STATE__)
+  
   return createStore(rootReducer, window.__INITIAL_STATE__, composeWithDevTools(
     applyMiddleware(reduxThunk),
     // other store enhancers if any

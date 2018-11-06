@@ -6,6 +6,7 @@ import RepositoryItem from '../RepositoryItem';
 
 class Home extends Component {
   static fetchData = (store) => {
+    console.log('fetchData');
     const isDoneFetch = true
     return store.dispatch(fetchRepositoriesAction(isDoneFetch))
   }

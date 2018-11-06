@@ -12,7 +12,7 @@ const initialStates = {
 }
 
 export default (state = initialStates, action) => {
-  console.log(action)
+  console.log('------action------', action.type)
   switch (action.type) {
     case REQUEST_REPOSITORIES:
       return {
