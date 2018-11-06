@@ -11,25 +11,25 @@ module.exports = {
       // 'react-hot-loader/patch', --> only uncomment this line for react-hot-loader v3
       '@babel/runtime/regenerator',
       'webpack-hot-middleware/client?reload=true',
-      './src/client/main.js'
-    ]
+      './src/client/main.js',
+    ],
   },
   mode: 'development',
   output: {
     filename: '[name]-bundle.js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
   },
   devtool: 'source-map',
   module: {
     rules: [
-			{
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.css$/,
@@ -38,47 +38,47 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-							modules: true,
-							localIdentName: '[name]__[local]--[hash:base64:5]',
-							importLoaders: 1,
-							sourceMap: true,
-						},
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]',
+              importLoaders: 1,
+              sourceMap: true,
+            },
           },
           {
-						loader: 'postcss-loader',
-						options: {
-							sourceMap: true,
-							ident: 'postcss',
-						},
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              ident: 'postcss',
+              plugins: () => [require('autoprefixer')],
+            },
           },
-
-        ]
+        ],
       },
       {
-				test: /\.(jpg|svg|png|gif)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: 'images/[name].[ext]',
-						},
-					},
-				],
-			},
-    ]
+        test: /\.(jpg|svg|png|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractCssChunks({
       filename: '[name].css',
       chunkFilename: '[name]-[hash:8].css',
-      hot: true
+      hot: true,
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
-        WEBPACK: true
-      }
+        WEBPACK: true,
+      },
     }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 }

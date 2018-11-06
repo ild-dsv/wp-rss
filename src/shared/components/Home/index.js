@@ -2,17 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchRepositories as fetchRepositoriesAction } from '../../actions/repositories'
 import { refreshDoneFetch as refreshDoneFetchAction } from '../../actions/repositories'
-import RepositoryItem from '../RepositoryItem';
+import RepositoryItem from '../RepositoryItem'
+
+import './Home.css'
 
 class Home extends Component {
-  static fetchData = (store) => {
-    console.log('fetchData');
+  static fetchData = store => {
+    console.log('fetchData')
     const isDoneFetch = true
     return store.dispatch(fetchRepositoriesAction(isDoneFetch))
   }
 
   componentDidMount() {
-    const { fetchRepositories, isDoneFetch} = this.props
+    const { fetchRepositories, isDoneFetch } = this.props
     if (!isDoneFetch) fetchRepositories()
   }
 
@@ -21,7 +23,7 @@ class Home extends Component {
   }
 
   render() {
-    const { isFetching, repositories, errors} = this.props
+    const { isFetching, repositories, errors } = this.props
     if (isFetching) {
       return <div>Loading....</div>
     }
@@ -31,33 +33,32 @@ class Home extends Component {
 
     return (
       <div className="repository-container">
-        <div>Repo LeaderBoard</div>
-        {
-          repositories.map(repository => <RepositoryItem
-            key={repository.id}
-            {...repository}
-          />)
-        }
+        {repositories.map(repository => (
+          <RepositoryItem key={repository.id} {...repository} />
+        ))}
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { isFetching, repositories, errors, isDoneFetch } = state.repositories
   return {
     isFetching,
     repositories,
     errors,
-    isDoneFetch
+    isDoneFetch,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchRepositories: () => dispatch(fetchRepositoriesAction()),
     refreshDoneFetch: () => dispatch(refreshDoneFetchAction()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home)
