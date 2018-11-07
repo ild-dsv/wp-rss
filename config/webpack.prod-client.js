@@ -46,10 +46,10 @@ module.exports = {
           ExtractCssChunks.loader,
           {
             loader: 'css-loader',
-            options: {
-              modules: true,
-              // localIdentName: '[hash:base64:5]',
-            },
+            // options: {
+            //   modules: true,
+            //   localIdentName: '[hash:base64:5]',
+            // },
           },
           {
             loader: 'postcss-loader',
