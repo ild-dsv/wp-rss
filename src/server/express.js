@@ -32,24 +32,24 @@ const done = () => {
 if (isDev) {
   const compiler = webpack([configDevClient, configDevServer])
 
-  const clientCompiler = compiler.compilers[0]
-  // const serverCompiler = compiler.compilers[1]
+  const clientCompiler = compiler.compilers[0];
+	const serverCompiler = compiler.compilers[1];
 
-  const webpackDevMiddleware = require('webpack-dev-middleware')(
-    compiler,
-    configDevClient.devServer
-  )
+	const webpackDevMiddleware = require('webpack-dev-middleware')(
+		compiler,
+		configDevClient.devServer,
+	);
 
 	const webpackHotMiddlware = require('webpack-hot-middleware')(
 		clientCompiler,
 		configDevClient.devServer,
-  )
+	);
 
-  server.use(webpackDevMiddleware)
-  server.use(webpackHotMiddlware)
-  server.use(webpackHotServerMiddleware(compiler))
-  console.log('Middleware enabled')
-  done()
+	server.use(webpackDevMiddleware);
+	server.use(webpackHotMiddlware);
+	server.use(webpackHotServerMiddleware(compiler));
+	console.log('Middleware enabled');
+	done();
 } else {
   webpack([configProdClient, configProdServer]).run((err, stats) => {
 		const clientStats = stats.toJson().children[0];

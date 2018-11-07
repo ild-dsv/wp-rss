@@ -17,14 +17,13 @@ export default ({ clientStats }) => (req, res) => {
   const store = configureStore(true)
   const promises = branch.map(({route}) => {
     let fetchData = route.component.fetchData;
-    console.log(route.component.fetchData);
     return fetchData instanceof Function ? fetchData(store) : Promise.resolve(null)
   })
   return Promise.all(promises).then(data => {
     const app = renderToString(
       <Provider store={store}>
         <StaticRouter location={req.url} context={context}>
-          <div>{renderRoutes(routes)}</div>
+          {renderRoutes(routes)}
         </StaticRouter>
       </Provider>
     )
@@ -52,25 +51,7 @@ export default ({ clientStats }) => (req, res) => {
     res
       .status(status)
       .send(
-        `<!doctype html>
-          <html lang=${lang}>
-            <head>
-              ${styles}
-              ${helmet.title}
-              ${helmet.meta.toString()}
-              ${helmet.link.toString()}
-            </head>
-            <body>
-              <div id="react-root">
-                ${app}
-              </div>
-              <script>
-                window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}
-              </script>
-              ${js}
-              ${cssHash}
-            </body>
-          </html>`
+        `<!doctype html><html lang=${lang}><head>${styles}${helmet.title}${helmet.meta.toString()}${helmet.link.toString()}</head><body><div id="react-root">${app}</div><script>window.__INITIAL_STATE__=${JSON.stringify(store.getState())}</script>${js}${cssHash}</body></html>`
       )
   })
 }

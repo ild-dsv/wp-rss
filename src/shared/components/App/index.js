@@ -7,11 +7,11 @@ export default class AppRoot extends Component {
   render() {
     const { route } = this.props
     return (
-      <div>
+      <React.Fragment>
         <Head />
         <Header />
         {renderRoutes(route.routes)}
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { hot } from 'react-hot-loader'
 import { renderRoutes } from 'react-router-config'
 import routes from '../shared/route'
-
 class App extends Component {
 	constructor(props) {
 		super(props);
