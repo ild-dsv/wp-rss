@@ -37,12 +37,12 @@ module.exports = {
           ExtractCssChunks.loader,
           {
             loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
-              importLoaders: 1,
-              sourceMap: true,
-            },
+            // options: {
+            //   modules: true,
+            //   localIdentName: '[name]__[local]--[hash:base64:5]',
+            //   importLoaders: 1,
+            //   sourceMap: true,
+            // },
           },
           {
             loader: 'postcss-loader',
@@ -78,6 +78,9 @@ module.exports = {
         NODE_ENV: JSON.stringify('development'),
         WEBPACK: true,
       },
+    }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

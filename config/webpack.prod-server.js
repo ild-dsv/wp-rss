@@ -30,7 +30,7 @@ module.exports = {
             loader: 'css-loader/locals',
             options: {
               modules: true,
-              localIdentName: '[hash:base64:5]',
+              // localIdentName: '[hash:base64:5]',
               minimize: true,
             },
           },

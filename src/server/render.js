@@ -52,7 +52,7 @@ export default ({ clientStats }) => (req, res) => {
     res
       .status(status)
       .send(
-        `<!DOCTYPE html>
+        `<!doctype html>
           <html lang=${lang}>
             <head>
               ${styles}

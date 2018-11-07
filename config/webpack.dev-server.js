@@ -1,11 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const externals = require('./node-externals')
 
 module.exports = {
   name: 'server',
   target: 'node',
   entry: ['./src/server/render.js'],
   mode: 'development',
+  externals,
   output: {
     filename: 'dev-server-bundle.js',
     chunkFilename: '[name].js',
@@ -27,21 +30,18 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:5]',
-              importLoaders: 1,
-              sourceMap: true,
-            },
+            loader: 'css-loader/locals',
+						// options: {
+						// 	modules: true,
+						// 	localIdentName: '[name]__[local]--[hash:base64:5]',
+						// 	minimize: true,
+						// },
           },
           {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              ident: 'postcss',
-              plugins: () => [require('autoprefixer')],
-            },
+						loader: 'postcss-loader',
+						options: {
+							ident: 'postcss',
+						},
           },
         ],
       },
@@ -60,6 +60,14 @@ module.exports = {
     ],
   },
   plugins: [
+    new ExtractCssChunks({
+      filename: '[name].css',
+      chunkFilename: '[name]-[hash:8].css',
+      hot: true
+    }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
